@@ -9,24 +9,27 @@ import static com.jpetstore.util.TimeUtil.getImplicitWait;
 public class DriverFactory {
 
     public static PropertyReader prop;
-    protected static WebDriver driver = null;
+    protected static WebDriver driver = null; // Retain driver for compatibility
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     public static WebDriver getDriver() throws IOException {
-        if(driver == null) {
+        if (driverThreadLocal.get() == null) {
             driverThreadLocal.set(getBrowser().getWebDriver());
         }
-        driverThreadLocal.get().manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(getImplicitWait()));
-        return driverThreadLocal.get();
+        driver = driverThreadLocal.get(); // Keep driver synchronized with ThreadLocal
+        driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(getImplicitWait()));
+        return driver;
     }
 
     /**
      * Method to quit WebDriver
      */
     public static void quitDriver() {
-        if(driver != null) {
+        if (driverThreadLocal.get() != null) {
             driverThreadLocal.get().quit();
+            driverThreadLocal.remove(); // Clean up ThreadLocal
         }
+        driver = null; // Set driver to null for consistency
     }
 
     /**
@@ -34,13 +37,13 @@ public class DriverFactory {
      * @return Browser type
      */
     private static BrowserType getBrowser() throws IOException {
-
-        if(prop.getProperty(PropKey.BROWSER.getPropVal()).equalsIgnoreCase("CHROME")){
+        String browser = prop.getProperty(PropKey.BROWSER.getPropVal());
+        if (browser.equalsIgnoreCase("CHROME")) {
             return BrowserType.CHROME;
-        }
-        else if(prop.getProperty(PropKey.BROWSER.getPropVal()).equalsIgnoreCase("FIREFOX")){
+        } else if (browser.equalsIgnoreCase("FIREFOX")) {
             return BrowserType.FIREFOX;
+        } else {
+            return BrowserType.FIREFOX; // Default to Firefox
         }
-        else return BrowserType.FIREFOX;
     }
 }
