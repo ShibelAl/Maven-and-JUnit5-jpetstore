@@ -12,9 +12,13 @@ public class DriverFactory {
     protected static WebDriver driver = null; // Retain driver for compatibility
     private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
-    public static WebDriver getDriver() throws IOException {
+    public static WebDriver getDriver() {
         if (driverThreadLocal.get() == null) {
-            driverThreadLocal.set(getBrowser().getWebDriver());
+            try {
+                driverThreadLocal.set(getBrowser().getWebDriver());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         driver = driverThreadLocal.get(); // Keep driver synchronized with ThreadLocal
         driver.manage().timeouts().implicitlyWait(java.time.Duration.ofSeconds(getImplicitWait()));
@@ -36,7 +40,7 @@ public class DriverFactory {
      * Determine Browser
      * @return Browser type
      */
-    private static BrowserType getBrowser() throws IOException {
+    private static BrowserType getBrowser() {
         String browser = prop.getProperty(PropKey.BROWSER.getPropVal());
         if (browser.equalsIgnoreCase("CHROME")) {
             return BrowserType.CHROME;

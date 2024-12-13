@@ -22,24 +22,26 @@ public class PropertyReader {
 
     /**
      * Method to return property value
-     *
-     * @param propertyName
-     * @return
      */
-    public String getProperty(String propertyName) throws IOException {
-        Properties prop = new Properties();
+    public String getProperty(String propertyName) {
+        Properties properties = new Properties();
 
-        try {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties");
-            prop.load(inputStream);
+        // Using try-with-resources to ensure the InputStream is closed automatically
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("application.properties")) {
+            if (inputStream == null) {
+                throw new IOException("Properties file not found.");
+            }
 
-            if(prop.getProperty(propertyName) != null){
-                return prop.getProperty(propertyName);
+            properties.load(inputStream);
+            String value = properties.getProperty(propertyName);
+
+            if (value != null) {
+                return value;
+            } else {
+                throw new IllegalArgumentException("Property '" + propertyName + "' not found in the file.");
             }
         } catch (IOException e) {
-            throw new IOException(e.getMessage());
+            throw new RuntimeException("Failed to load properties file: " + e.getMessage(), e);
         }
-        return null;
-
     }
 }
