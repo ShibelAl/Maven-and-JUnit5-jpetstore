@@ -1,14 +1,14 @@
 package com.jpetstore.pages;
 
-import com.jpetstore.driver.DriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import com.jpetstore.driver.DriverManager;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import static com.jpetstore.util.TimeUtil.getExplicitWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
@@ -16,10 +16,6 @@ import java.util.List;
 public class HtmlPageObject extends DriverManager {
 
     private final WebDriver driver = getDriver();
-
-    public HtmlPageObject() throws IOException {
-
-    }
 
     /**
      * Method to find element by css selector.
@@ -96,5 +92,120 @@ public class HtmlPageObject extends DriverManager {
         catch (TimeoutException t) {
             throw new TimeoutException();
         }
+    }
+
+
+    /**
+     * Method to enter text inside textbox
+     */
+    public void enterTextIntoTextBox(By by, String text) {
+        WebElement textBox = findElementBy(by);
+        textBox.clear();
+        textBox.sendKeys(text);
+    }
+
+    /**
+     * Method to enter text inside textbox
+     */
+    public void enterTextIntoTextBox(WebElement element, String text) {
+        element.clear();
+        element.sendKeys(text);
+    }
+
+    /**
+     * Method to return text form an element
+     */
+    public String getTextFromElement(By by) {
+        WebElement element = findElementBy(by);
+        return element.getText();
+    }
+
+    /**
+     * Method to click on link or button
+     */
+    public void clickLinkOrBtn(By by) {
+        WebElement element = findElementBy(by);
+        element.click();
+    }
+
+    /**
+     * Method to click on link or button
+     */
+    public void clickLinkOrBtnByElement(WebElement element) {
+        element.click();
+    }
+
+
+    public String getDomAttribute(By by, String attribute) {
+        WebElement element = findElementBy(by);
+        return element.getDomAttribute(attribute);
+    }
+
+    public String getDomAttribute(WebElement element, String attribute) {
+        return element.getDomAttribute(attribute);
+    }
+
+    public String getDomProperty(By by, String property) {
+        WebElement element = findElementBy(by);
+        return element.getDomProperty(property);
+    }
+
+    public String getDomProperty(WebElement element, String property) {
+        return element.getDomProperty(property);
+    }
+
+    /**
+     * Method to select by visible text.
+     */
+    public void selectByVisibleText(By by, String text) {
+        WebElement element = findElementBy(by);
+        Select select = new Select(element);
+        select.selectByVisibleText(text);
+    }
+
+    /**
+     * Method to select checkbox.
+     */
+    public boolean selectCheckBox(By by) {
+        WebElement element = findElementBy(by);
+        if(element.isSelected()) {
+            return true;
+        }
+        element.click();
+        return true;
+    }
+
+    /**
+     * Method to select checkbox.
+     */
+    public boolean selectCheckBox(WebElement element) {
+        if(element.isSelected()) {
+            return true;
+        }
+        element.click();
+        return true;
+    }
+
+    public boolean isTextPresentOnPage(String text) {
+        String pageSource = driver.getPageSource();
+        return pageSource != null && pageSource.contains(text);
+    }
+
+    /**
+     * Method to select by index.
+     */
+    public void selectByIndex(By by, int index) {
+        WebElement element = findElementBy(by);
+        Select select = new Select(element);
+        select.selectByIndex(index);
+    }
+
+    /**
+     * Method to select by value.
+     */
+    public void selectByValue(By by, String value) {
+        WebElement element = findElementBy(by);
+        Select select = new Select(element);
+        select.selectByValue(value);
     }
 }
