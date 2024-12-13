@@ -72,10 +72,10 @@ public class BasePage extends HtmlPageObject {
     /**
      * Method to navigate to sign in page
      */
-    public void navigateToSignOnPage(){
+    public LoginPage navigateToSignOnPage(){
         clickLinkOrBtnByElement(enterTheStoreLink);
         clickLinkOrBtnByElement(signInLink);
-        new LoginPage(driver);
+        return new LoginPage(driver);
     }
 
     /**
