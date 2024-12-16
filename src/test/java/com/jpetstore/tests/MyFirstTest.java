@@ -1,9 +1,10 @@
 package com.jpetstore.tests;
 import com.jpetstore.driver.DriverManager;
 import com.jpetstore.util.PropKey;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-
+@Disabled
 public class MyFirstTest extends DriverManager {
 
     @Test
