@@ -24,9 +24,15 @@ public class JPetStoreSteps extends DriverManager {
         basePage.navigateToSignOnPage();
     }
 
+    @Step("Navigating to user registration page")
+    public void navigateToRegistrationPage() {
+
+        loginPage.navigateToRegistrationPage();
+    }
 
     @Step("Logging in with username: {0} & password: {1}")
     public void doLogin(String username, String password) {
+        basePage.clickSignInLink();
         loginPage.doLogin(username, password);
     }
 
@@ -41,9 +47,55 @@ public class JPetStoreSteps extends DriverManager {
     }
 
     @Step("Adding new user information with userName: {0} , password: {1} , repeatPassword {2}")
-    public AccountsPage addNewUserInformation(String userName, String password,
-                                              String repeatPassword){
+    public void addNewUserInformation(String userName, String password,
+                                      String repeatPassword){
 
-        return accountsPage.addNewUserInformation(userName,password,repeatPassword);
+        accountsPage.addNewUserInformation(userName, password, repeatPassword);
     }
+
+    @Step("Adding account information- firstname:{0} , lastName:{1}," +
+            " email:{2}, phone:{3}, addr1:{4}, addr2: {5}, city:{6}, "  +
+            "state:{7}, zip:{8}, country:{9} ")
+    public void addAccountInformation(String firstName ,
+                                      String lastName ,
+                                      String email ,
+                                      String phone ,
+                                      String addr1 ,
+                                      String addr2 ,
+                                      String city ,
+                                      String state ,
+                                      String zip ,
+                                      String country) {
+
+
+        accountsPage.addAccountInformation(firstName,
+                lastName,
+                email,
+                phone,
+                addr1,
+                addr2,
+                city,
+                state,
+                zip,
+                country);
+    }
+
+    @Step("Adding profile information - language:{0} ,category: {1} ,myList: {2} ,myBanner:{3}")
+    public void addProfileInformation(String language,
+                                      String category ,
+                                      boolean myList ,
+                                      boolean myBanner) {
+
+        accountsPage.addProfileInformation(language,
+                category,
+                myList,
+                myBanner);
+    }
+
+    @Step("Saving account information")
+    public void clickSaveAccountInformation() {
+
+        accountsPage.clickSaveAccountInformation();
+    }
+
 }
