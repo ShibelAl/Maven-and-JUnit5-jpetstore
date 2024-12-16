@@ -1,9 +1,10 @@
 package com.jpetstore.steps;
 import com.jpetstore.driver.DriverManager;
-import com.jpetstore.pages.AccountsPage;
-import com.jpetstore.pages.BasePage;
 import com.jpetstore.pages.DashBoardPage;
+import com.jpetstore.pages.AccountsPage;
 import com.jpetstore.pages.LoginPage;
+import com.jpetstore.pages.BasePage;
+import com.jpetstore.util.Helper;
 import io.qameta.allure.Step;
 
 public class JPetStoreSteps extends DriverManager {
@@ -17,7 +18,6 @@ public class JPetStoreSteps extends DriverManager {
     public void navigateToApp() {
         basePage.navigateToApp();
     }
-
 
     @Step("Navigating to Login Page")
     public void navigateToSignOnPage(){
@@ -33,6 +33,7 @@ public class JPetStoreSteps extends DriverManager {
     @Step("Logging in with username: {0} & password: {1}")
     public void doLogin(String username, String password) {
         basePage.clickSignInLink();
+        Helper.takeScreenShot(driver, "doLogin");
         loginPage.doLogin(username, password);
     }
 
@@ -66,7 +67,6 @@ public class JPetStoreSteps extends DriverManager {
                                       String state ,
                                       String zip ,
                                       String country) {
-
 
         accountsPage.addAccountInformation(firstName,
                 lastName,
