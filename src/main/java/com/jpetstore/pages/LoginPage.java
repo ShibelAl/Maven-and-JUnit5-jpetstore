@@ -45,11 +45,10 @@ public class LoginPage extends BasePage {
 
     /**
      * Method to navigate to registration page.
-     * @return AccountsPage instance.
      */
-    public AccountsPage navigateToRegistrationPage(){
+    public void navigateToRegistrationPage(){
         clickLinkOrBtn(By.xpath(REGISTER_NOW_LINK));
-        return new AccountsPage(driver);
+        new AccountsPage(driver);
     }
 
     /**
