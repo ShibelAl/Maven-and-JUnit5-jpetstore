@@ -1,5 +1,58 @@
 package com.jpetstore.tests;
+import com.github.javafaker.Faker;
+import com.jpetstore.steps.JPetStoreSteps;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class RegistrationTest {
 
+public class RegistrationTest extends JPetStoreSteps {
+
+
+    @Test
+    @DisplayName("Add a new user to the store & verify if the user can login")
+    void addNewUserToStoreAndVerifyLogin(){
+
+        Faker faker = new Faker();
+
+        String userName = "shibel" + faker.number()
+                .randomNumber(10, false);
+
+        String password = faker.internet().password();
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String phoneNumber = faker.phoneNumber().cellPhone();
+        String addr1 = faker.address().buildingNumber();
+        String addr2 = faker.address().streetAddress();
+        String city = faker.address().city();
+        String state = faker.address().state();
+        String zipCode = faker.address().zipCode();
+        String country = faker.address().country();
+
+        navigateToApp();
+
+        navigateToSignOnPage();
+
+        navigateToRegistrationPage();
+
+        addNewUserInformation(userName,password,password);
+
+        addAccountInformation(firstName,lastName,email,phoneNumber,addr1,addr2,
+                city,state,zipCode,country);
+
+        addProfileInformation("english", "DOGS" ,
+                true,true);
+
+        clickSaveAccountInformation();
+
+        //Login & verify account creation
+
+        doLogin(userName,password);
+
+        String greetingMsg =  getGreetingMessage();
+
+        assertEquals("Welcome " + firstName + "!" ,greetingMsg);
+
+    }
 }
