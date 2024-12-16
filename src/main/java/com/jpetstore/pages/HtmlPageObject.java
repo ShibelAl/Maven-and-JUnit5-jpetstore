@@ -1,5 +1,5 @@
 package com.jpetstore.pages;
-
+import com.jpetstore.util.Helper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -102,6 +102,7 @@ public class HtmlPageObject extends DriverManager {
         WebElement textBox = findElementBy(by);
         textBox.clear();
         textBox.sendKeys(text);
+        Helper.takeElementScreenShot(textBox, "textBox");
     }
 
     /**
@@ -110,6 +111,7 @@ public class HtmlPageObject extends DriverManager {
     public void enterTextIntoTextBox(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
+        Helper.takeElementScreenShot(element, "textBox");
     }
 
     /**
