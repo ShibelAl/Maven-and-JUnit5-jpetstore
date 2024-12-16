@@ -1,9 +1,10 @@
 package com.jpetstore.util;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
+
 
 public class Helper {
 
@@ -33,62 +34,37 @@ public class Helper {
      *
      * @param driver the WebDriver instance to capture the screenshot.
      * @param screenShotName the name to associate with the screenshot.
-     * @return true if the screenshot was taken, false otherwise.
+     * @return the screenshot as a byte array, or null if screenshots are disabled.
      */
     @Attachment(value = "{screenShotName}", type = "image/png")
-    public static synchronized boolean takeScreenShot(WebDriver driver, String screenShotName) {
+    public static synchronized byte[] takeScreenShot(WebDriver driver, String screenShotName) {
         boolean isScreenShot = PropertyReader.getInstance()
                 .getProperty(PropKey.SCREEN_SHOT.getPropVal())
                 .equalsIgnoreCase("ENABLE");
 
         if (isScreenShot) {
-            attachScreenShot(driver, screenShotName);
-            return true;
+            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         }
-        return false;
-    }
-
-    /**
-     * Captures and attaches a screenshot to the report.
-     *
-     * @param driver the WebDriver instance to capture the screenshot.
-     * @param name the name to associate with the screenshot.
-     * @return the screenshot as a byte array.
-     */
-    @Attachment(value = "{name}", type = "image/png")
-    private static synchronized byte[] attachScreenShot(WebDriver driver, String name) {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+        return null; // No screenshot taken
     }
 
     /**
      * Takes a screenshot of a specific web element if screenshots are enabled.
      *
-     * @param element the WebElement to capture in the screenshot.
-     * @param name the name to associate with the screenshot.
-     * @return true if the screenshot was taken, false otherwise.
+     * @param element     the WebElement to capture in the screenshot.
+     * @param elementName the name to associate with the screenshot.
+     * @return the screenshot as a byte array, or null if screenshots are disabled.
      */
-    public static synchronized boolean takeElementScreenShot(WebElement element, String name) {
+    @Attachment(value = "{elementName}", type = "image/png")
+    public static synchronized byte[] takeElementScreenShot(WebElement element, String elementName) {
         boolean isScreenShot = PropertyReader.getInstance()
                 .getProperty(PropKey.SCREEN_SHOT.getPropVal())
                 .equalsIgnoreCase("ENABLE");
 
         if (isScreenShot) {
-            attachElementScreenShot(element, name);
-            return true;
+            return element.getScreenshotAs(OutputType.BYTES);
         }
-        return false;
-    }
-
-    /**
-     * Captures and attaches a screenshot of a specific web element to the report.
-     *
-     * @param element the WebElement to capture in the screenshot.
-     * @param name the name to associate with the screenshot.
-     * @return the screenshot of the element as a byte array.
-     */
-    @Attachment(value = "{name}", type = "image/png")
-    private static synchronized byte[] attachElementScreenShot(WebElement element, String name) {
-        return element.getScreenshotAs(OutputType.BYTES);
+        return null; // No screenshot taken
     }
 
 }
