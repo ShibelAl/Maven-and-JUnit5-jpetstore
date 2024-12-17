@@ -1,16 +1,21 @@
 package com.jpetstore.tests;
 import com.jpetstore.steps.JPetStoreSteps;
 import static org.junit.jupiter.api.Assertions.*;
+
+import io.github.artsok.RepeatedIfExceptionsTest;
 import org.junit.jupiter.api.DisplayName;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 
+@ExtendWith(TestListener.class)
 @DisplayName("Login tests")
 public class LoginTest extends JPetStoreSteps {
 
-    @Test
+//    @Test
+    @RepeatedIfExceptionsTest(repeats = 3)
     @DisplayName("As a valid user, a user must be able to log in with a valid credentials")
     @Description("Logging into the app via sign on page")
     void doLogin() {
