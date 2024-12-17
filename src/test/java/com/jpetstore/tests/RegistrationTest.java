@@ -2,14 +2,18 @@ package com.jpetstore.tests;
 import com.github.javafaker.Faker;
 import com.jpetstore.steps.JPetStoreSteps;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+
+import static com.jpetstore.tags.JPetStoreTags.REGISTRATION;
+import static com.jpetstore.tags.JPetStoreTags.REGRESSION;
 import static org.junit.jupiter.api.Assertions.*;
 
-
+@Tag(REGRESSION)
 public class RegistrationTest extends JPetStoreSteps {
 
-
     @Test
+    @Tag(REGISTRATION)
     @DisplayName("Add a new user to the store & verify if the user can login")
     void addNewUserToStoreAndVerifyLogin(){
 
