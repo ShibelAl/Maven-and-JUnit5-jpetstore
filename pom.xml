@@ -12,6 +12,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <allure.version>2.29.0</allure.version>
     <aspectj.version>1.9.21</aspectj.version>
+    <group></group>
   </properties>
 
   <dependencyManagement>
@@ -99,6 +100,7 @@
             -Dfile.encoding=${project.build.sourceEncoding}
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
           </argLine>
+          <groups>${group}</groups>
         </configuration>
         <dependencies>
           <dependency>
