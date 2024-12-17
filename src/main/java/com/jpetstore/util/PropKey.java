@@ -17,7 +17,9 @@ public enum PropKey {
 
     //Screenshot
     SCREEN_SHOT("screenshot"),
-    ELEMENT_SCREEN_SHOT("elementScreenShot");
+    ELEMENT_SCREEN_SHOT("elementScreenShot"),
+
+    ALLURE_REPORT_STEP_LOG("allureReportStepLog");
 
     private final String propVal;
 
