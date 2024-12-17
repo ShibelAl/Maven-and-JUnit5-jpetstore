@@ -1,5 +1,6 @@
 package com.jpetstore.pages;
 import com.jpetstore.util.Helper;
+import com.jpetstore.util.LogHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -103,6 +104,8 @@ public class HtmlPageObject extends DriverManager {
         textBox.clear();
         textBox.sendKeys(text);
         Helper.takeElementScreenShot(textBox, "textBox");
+
+        LogHelper.logToReport("Typing text: " + text + " into text box with locator: " + textBox);
     }
 
     /**
@@ -112,6 +115,8 @@ public class HtmlPageObject extends DriverManager {
         element.clear();
         element.sendKeys(text);
         Helper.takeElementScreenShot(element, "textBox");
+
+        LogHelper.logToReport("Typing text: " + text + " into text box with locator: " + element.toString());
     }
 
     /**
