@@ -12,6 +12,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <allure.version>2.29.0</allure.version>
     <aspectj.version>1.9.21</aspectj.version>
+
+    <!-- SureFire properties-->
+    <surefire.forkCount>1C</surefire.forkCount>
+    <surefire.reuseForks>false</surefire.reuseForks>
+    <surefire.threadCount>3</surefire.threadCount>
+    <surefire.parallel>methods</surefire.parallel>
+
     <group></group>
   </properties>
 
@@ -137,7 +144,16 @@
             -Dfile.encoding=${project.build.sourceEncoding}
             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
           </argLine>
+
+          <!-- For parallel test execution -->
+          <parallel>${surefire.parallel}</parallel>
+          <forkCount>${surefire.forkCount}</forkCount>
+          <reuseForks>${surefire.reuseForks}</reuseForks>
+          <threadCount>${surefire.threadCount}</threadCount>
+
+          <!-- This is for running the tests according to their tags -->
           <groups>${group}</groups>
+
         </configuration>
         <dependencies>
           <dependency>
