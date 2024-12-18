@@ -57,13 +57,12 @@ public class Helper {
      */
     @Attachment(value = "{elementName}", type = "image/png")
     public static synchronized byte[] takeElementScreenShot(WebElement element, String elementName) {
-        boolean isScreenShot = PropertyReader.getInstance()
-                .getProperty(PropKey.ELEMENT_SCREEN_SHOT.getPropVal())
-                .equalsIgnoreCase("ENABLE");
+        String getElementScreenShot = SystemPropertyHelper.getElementScreenShotValue();
 
-        if (isScreenShot) {
+        if(getElementScreenShot.equalsIgnoreCase("ENABLE")) {
             return element.getScreenshotAs(OutputType.BYTES);
         }
+
         return null; // No screenshot taken
     }
 
