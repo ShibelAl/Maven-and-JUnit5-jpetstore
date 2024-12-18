@@ -154,6 +154,15 @@
           <!-- This is for running the tests according to their tags -->
           <groups>${group}</groups>
 
+          <systemPropertyVariables>
+            <elementScreenShot>DISABLE</elementScreenShot>
+
+            <hubUrl></hubUrl>
+            <remote></remote>
+            <browser></browser>
+
+          </systemPropertyVariables>
+
         </configuration>
         <dependencies>
           <dependency>
