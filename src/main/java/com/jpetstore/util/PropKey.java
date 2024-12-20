@@ -16,10 +16,15 @@ public enum PropKey {
     EXPLICIT_WAIT("explicitWait"),
 
     //Screenshot
-    SCREEN_SHOT("screenshot"),
+    SCREEN_SHOT("screenShot"),
     ELEMENT_SCREEN_SHOT("elementScreenShot"),
 
-    ALLURE_REPORT_STEP_LOG("allureReportStepLog");
+    ALLURE_REPORT_STEP_LOG("allureReportStepLog"),
+
+    //Selenium Grid
+    REMOTE("remote"),
+    HUB_URL("hubUrl");
+
 
     private final String propVal;
 
