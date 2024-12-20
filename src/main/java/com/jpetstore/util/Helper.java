@@ -66,4 +66,26 @@ public class Helper {
         return null; // No screenshot taken
     }
 
+
+    /**
+     * This method checks if the tests will run on a remote webdriver
+     * or a local webdriver (on localhost).
+     * If REMOTE is ENABLE then the tests will run on a remote webdriver.
+     */
+    public static boolean isRemote(){
+
+        return PropertyReader.getInstance()
+                .getProperty(PropKey.REMOTE.getPropVal())
+                .equalsIgnoreCase("TRUE");
+    }
+
+    /**
+     * Method to return hub url from property file.
+     */
+    public static String getHubUrl(){
+
+        return PropertyReader.getInstance()
+                .getProperty(PropKey.HUB_URL.getPropVal());
+    }
+
 }
