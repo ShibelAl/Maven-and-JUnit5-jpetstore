@@ -19,7 +19,11 @@
     <surefire.threadCount>3</surefire.threadCount>
     <surefire.parallel>methods</surefire.parallel>
 
+    <!-- Default group (tag) to run the tests on (e.g. REGRESSION)
+    When this field is empty, and there is no group specified in the
+    command line, the program will run all the tests in the projects -->
     <group></group>
+
   </properties>
 
   <dependencyManagement>
