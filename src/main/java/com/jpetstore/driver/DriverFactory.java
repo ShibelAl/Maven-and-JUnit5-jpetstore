@@ -2,6 +2,7 @@ package com.jpetstore.driver;
 import java.net.URL;
 import java.io.IOException;
 import com.jpetstore.util.PropKey;
+import com.jpetstore.util.SystemPropertyHelper;
 import org.openqa.selenium.WebDriver;
 import java.net.MalformedURLException;
 import com.jpetstore.util.PropertyReader;
@@ -59,17 +60,30 @@ public class DriverFactory {
     }
 
     /**
-     * Determine Browser
-     * @return Browser type
+     * Determine Browser for running the tests.
+     * @return Browser type (e.g. Chrome, FireFox)
      */
     private static BrowserType getBrowser() {
-        String browser = prop.getProperty(PropKey.BROWSER.getPropVal());
-        if (browser.equalsIgnoreCase("CHROME")) {
-            return BrowserType.CHROME;
-        } else if (browser.equalsIgnoreCase("FIREFOX")) {
+
+        BrowserType browserType = SystemPropertyHelper.getBrowserFromSystemVariable();
+
+        if(browserType != null){
+            return browserType;
+        }
+
+        if(prop.getProperty(PropKey.BROWSER.getPropVal())
+                .equalsIgnoreCase("CHROME")){
+
+            return  BrowserType.CHROME;
+        }
+        else if(prop.getProperty(PropKey.BROWSER.getPropVal())
+                .equalsIgnoreCase("FIREFOX")){
+
             return BrowserType.FIREFOX;
-        } else {
-            return BrowserType.FIREFOX; // Default to Firefox
+        }
+        else
+        {
+            return BrowserType.FIREFOX;
         }
     }
 }

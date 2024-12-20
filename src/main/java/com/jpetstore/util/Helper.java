@@ -74,9 +74,7 @@ public class Helper {
      */
     public static boolean isRemote(){
 
-        return PropertyReader.getInstance()
-                .getProperty(PropKey.REMOTE.getPropVal())
-                .equalsIgnoreCase("TRUE");
+        return SystemPropertyHelper.getRemoteVal().equalsIgnoreCase("TRUE");
     }
 
     /**
@@ -84,8 +82,9 @@ public class Helper {
      */
     public static String getHubUrl(){
 
-        return PropertyReader.getInstance()
-                .getProperty(PropKey.HUB_URL.getPropVal());
+        return SystemPropertyHelper.getHubUrl();
     }
+
+
 
 }
