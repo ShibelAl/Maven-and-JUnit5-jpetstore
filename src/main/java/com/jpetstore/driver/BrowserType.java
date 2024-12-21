@@ -36,9 +36,8 @@ public enum BrowserType implements DriverSetup{
         }
 
         @Override
-        public WebDriver getWebDriver() throws IOException {
-            String browser_path = PropertyReader.getInstance().
-                    getProperty(PropKey.CHROME_DRIVER_PATH.getPropVal());
+        public WebDriver getWebDriver() {
+            String browser_path = Helper.getBrowserPath();
 
             if(Helper.isWebDriverManager()){
                 WebDriverManager.chromedriver().setup();
@@ -73,9 +72,8 @@ public enum BrowserType implements DriverSetup{
         }
 
         @Override
-        public WebDriver getWebDriver() throws IOException {
-            String browser_path = PropertyReader.getInstance().
-                    getProperty(PropKey.GECKO_DRIVER_PATH.getPropVal());
+        public WebDriver getWebDriver() {
+            String browser_path = Helper.getBrowserPath();
 
             if(Helper.isWebDriverManager()){
                 WebDriverManager.chromedriver().setup();
