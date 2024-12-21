@@ -8,8 +8,12 @@ public enum PropKey {
     BROWSER_MANAGER("browserManager"),
 
     //Driver Paths
-    CHROME_DRIVER_PATH("chromeDriverPath"),
-    GECKO_DRIVER_PATH("geckoDriverPath"),
+    CHROME_DRIVER_PATH_WIN("chromeDriverPathWin"),
+    GECKO_DRIVER_PATH_WIN("geckoDriverPathWin"),
+
+
+    CHROME_DRIVER_PATH_OSX("chromeDriverPathOsx"),
+    GECKO_DRIVER_PATH_OSX("geckoDriverPathOsx"),
 
     //TimeOuts
     IMPLICIT_WAIT("implicitWait"),
